@@ -1,0 +1,50 @@
+{
+  "name": "bingspeech-api-client",
+  "version": "1.0.0",
+  "description": "Microsoft Bing Speech API client",
+  "author": "Guido García <palmerabollo@gmail.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib", "bin"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -fR ./lib",
+    "compile": "tsc",
+    "lint": "tslint './src/**/*.ts'",
+    "prepublish": "npm run build",
+    "test": "npm run build && mocha -R spec 'lib/**/*.spec.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/palmerabollo/bingspeech-api-client.git"
+  },
+  "keywords": [
+    "bing",
+    "speech",
+    "microsoft"
+  ],
+  "dependencies": {
+    "node-uuid": "^1.4.7",
+    "request": "^2.75.0",
+    "request-promise-native": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.33",
+    "@types/mocha": "^2.2.32",
+    "@types/nock": "^8.0.33",
+    "@types/node": "^6.0.40",
+    "@types/node-uuid": "0.0.28",
+    "@types/sinon": "^1.16.30",
+    "@types/sinon-chai": "^2.7.27",
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "nock": "^8.0.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.3"
+  }
+}

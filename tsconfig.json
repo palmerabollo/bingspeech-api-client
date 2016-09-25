@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "outDir": "./lib",
+    "preserveConstEnums": true,
+    "pretty": true,
+    "removeComments": true,
+    "target": "es2015",
+    "sourceMap": true
+  },
+  "filesGlob": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
