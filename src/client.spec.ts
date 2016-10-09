@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { BingSpeechClient, VoiceRecognitionResponse } from './';
+import { BingSpeechClient, VoiceRecognitionResponse, VoiceSynthesisResponse } from './';
 
 import * as nock from 'nock';
 
@@ -46,6 +46,25 @@ describe('Bing Speech API client', () => {
         return client.recognize(wave)
             .then((response: VoiceRecognitionResponse) => {
                 expect(response).to.eql(mockResponse);
+            });
+    });
+
+    it('should synthesize a voice', () => {
+         const mockResponse = 'this is a wav';
+
+        nock('https://api.cognitive.microsoft.com')
+            .post('/sts/v1.0/issueToken')
+            .reply(200, 'FAKETOKEN');
+
+        nock('https://speech.platform.bing.com')
+            .post('/synthesize')
+            .reply(200, mockResponse);
+
+        let client = new BingSpeechClient('fakeSubscriptionId');
+
+        return client.synthesize('This is a fake test')
+            .then((response: VoiceSynthesisResponse) => {
+                expect(response.wave.toString()).to.eq(mockResponse);
             });
     });
 });
