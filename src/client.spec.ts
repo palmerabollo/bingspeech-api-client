@@ -43,7 +43,7 @@ describe('Bing Speech API client', () => {
         let client = new BingSpeechClient('fakeSubscriptionId');
 
         let wave = new Buffer('');
-        return client.voiceRecognition(wave)
+        return client.recognize(wave)
             .then((response: VoiceRecognitionResponse) => {
                 expect(response).to.eql(mockResponse);
             });
