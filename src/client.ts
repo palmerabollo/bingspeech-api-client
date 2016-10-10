@@ -99,6 +99,7 @@ export class BingSpeechClient {
                         'User-Agent': 'bingspeech-api-client'
                     },
                     timeout: 15000,
+                    encoding: null, // return body directly as a Buffer
                     body: ssml
                 });
 
@@ -106,7 +107,7 @@ export class BingSpeechClient {
             })
             .then(result => {
                 let response: VoiceSynthesisResponse = {
-                    wave: new Buffer(result, 'binary')
+                    wave: result
                 };
                 return response;
             })
