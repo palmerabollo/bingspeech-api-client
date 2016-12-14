@@ -81,6 +81,12 @@ export class BingSpeechClient {
                 this.token = token;
                 this.tokenExpirationDate = Date.now() + 9 * 60 * 1000;
 
+                // If locale is Chinese or Japanese, convert to proper Unicode format
+                let asianLocales: string[] = ['zh-cn', 'zh-hk', 'zh-tw', 'ja-jp'];
+                if(asianLocales.indexOf(locale.toLowerCase()) > -1) {
+                  text = this.convertToUnicode(text);
+                }
+
                 // TODO match name and locale
                 let name = 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)';
                 let gender = 'Female';
@@ -133,5 +139,11 @@ export class BingSpeechClient {
         });
 
         return baseRequest.post(this.BING_SPEECH_TOKEN_ENDPOINT);
+    }
+
+    private convertToUnicode(message: string): string {
+        return message.split('').map(function(c) {
+          return '&#' + c.charCodeAt(0) + ';';
+        }).join('');
     }
 }
