@@ -1,5 +1,5 @@
 {
-  "name": "bingspeech-api-client",
+  "name": "morphet-bingspeech-api-client",
   "version": "2.0.1",
   "description": "Microsoft Bing Speech API client",
   "author": "Guido García <palmerabollo@gmail.com>",
