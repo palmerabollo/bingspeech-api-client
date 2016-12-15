@@ -7,7 +7,8 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
-    "lib", "bin"
+    "lib",
+    "bin"
   ],
   "scripts": {
     "build": "npm run clean && npm run compile",
@@ -27,9 +28,9 @@
     "microsoft"
   ],
   "dependencies": {
-    "node-uuid": "^1.4.7",
     "request": "^2.75.0",
-    "request-promise-native": "^1.0.3"
+    "request-promise-native": "^1.0.3",
+    "uuid": "^3.0.0"
   },
   "devDependencies": {
     "@types/chai": "^3.4.33",

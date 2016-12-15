@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as util from 'util';
-import * as uuid from 'node-uuid';
+import * as uuid from 'uuid';
 
 import { VoiceRecognitionResponse, VoiceSynthesisResponse } from './models';
 
