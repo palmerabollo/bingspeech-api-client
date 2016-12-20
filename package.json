@@ -37,7 +37,6 @@
     "@types/mocha": "^2.2.32",
     "@types/nock": "^8.0.33",
     "@types/node": "^6.0.40",
-    "@types/node-uuid": "0.0.28",
     "@types/sinon": "^1.16.30",
     "@types/sinon-chai": "^2.7.27",
     "chai": "^3.5.0",
