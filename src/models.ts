@@ -30,5 +30,5 @@ export interface VoiceRecognitionResponse {
 };
 
 export interface VoiceSynthesisResponse {
-    wave: Buffer
+    wave: Buffer;
 }

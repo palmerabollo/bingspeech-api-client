@@ -7,6 +7,8 @@ import { VoiceRecognitionResponse, VoiceSynthesisResponse } from './models';
 const request = require('request-promise-native');
 const debug = require('debug')('bingspeechclient');
 
+const ASIAN_LOCALES = ['zh-cn', 'zh-hk', 'zh-tw', 'ja-jp'];
+
 // Official docs
 // STT https://www.microsoft.com/cognitive-services/en-us/speech-api/documentation/API-Reference-REST/BingVoiceRecognition
 // TTS https://www.microsoft.com/cognitive-services/en-us/speech-api/documentation/api-reference-rest/bingvoiceoutput
@@ -82,9 +84,8 @@ export class BingSpeechClient {
                 this.tokenExpirationDate = Date.now() + 9 * 60 * 1000;
 
                 // If locale is Chinese or Japanese, convert to proper Unicode format
-                let asianLocales: string[] = ['zh-cn', 'zh-hk', 'zh-tw', 'ja-jp'];
-                if(asianLocales.indexOf(locale.toLowerCase()) > -1) {
-                  text = this.convertToUnicode(text);
+                if (ASIAN_LOCALES.indexOf(locale.toLowerCase()) > -1) {
+                    text = this.convertToUnicode(text);
                 }
 
                 // TODO match name and locale
@@ -142,8 +143,8 @@ export class BingSpeechClient {
     }
 
     private convertToUnicode(message: string): string {
-        return message.split('').map(function(c) {
-          return '&#' + c.charCodeAt(0) + ';';
-        }).join('');
+        return message.split('')
+                      .map((c) => '&#' + c.charCodeAt(0) + ';')
+                      .join('');
     }
 }
