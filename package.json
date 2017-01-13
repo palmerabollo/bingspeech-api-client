@@ -1,6 +1,6 @@
 {
   "name": "bingspeech-api-client",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Microsoft Bing Speech API client",
   "author": "Guido García <palmerabollo@gmail.com>",
   "license": "MIT",
