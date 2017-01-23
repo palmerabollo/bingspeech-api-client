@@ -28,6 +28,7 @@
     "microsoft"
   ],
   "dependencies": {
+    "debug": "^2.6.0",
     "request": "^2.75.0",
     "request-promise-native": "^1.0.3",
     "uuid": "^3.0.0"
