@@ -223,7 +223,7 @@ export class BingSpeechClient {
                 if (res.statusCode !== 200) {
                     return reject(new Error(`Wrong status code ${res.statusCode} in Bing Speech API / token`));
                 }
-                resolve(body.toString('utf-8'));
+                resolve(body);
             });
         });
     }
