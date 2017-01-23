@@ -20,6 +20,7 @@ bing.recognize(wave).then(result => {
   console.log('\n');
 });
 
+
 /**
  * Text To Speech example (default lang & genre)
  */

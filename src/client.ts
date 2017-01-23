@@ -1,10 +1,12 @@
 import * as fs from 'fs';
 import * as util from 'util';
 import * as uuid from 'uuid';
+import * as needle from 'needle';
+import * as stream from 'stream';
+import * as querystring from 'querystring';
 
 import { VoiceRecognitionResponse, VoiceSynthesisResponse } from './models';
 
-const request = require('request-promise-native');
 const debug = require('debug')('bingspeechclient');
 
 const ASIAN_LOCALES = ['zh-cn', 'zh-hk', 'zh-tw', 'ja-jp'];
@@ -69,7 +71,17 @@ export class BingSpeechClient {
         this.subscriptionKey = subscriptionKey;
     }
 
+    /**
+     * @deprecated Use the recognizeStream function instead. Will be removed in 2.x
+     */
     recognize(wave: Buffer, locale: string = 'en-us'): Promise<VoiceRecognitionResponse> {
+        var bufferStream = new stream.PassThrough();
+        bufferStream.end(wave);
+
+        return this.recognizeStream(bufferStream, locale);
+    }
+
+    recognizeStream(input: NodeJS.ReadWriteStream, locale: string = 'en-us'): Promise<VoiceRecognitionResponse> {
         // see also https://nowayshecodes.com/2016/02/12/speech-to-text-with-project-oxford-using-node-js/
         // TODO make locale and content-type configurable
         return this.issueToken()
@@ -79,35 +91,70 @@ export class BingSpeechClient {
                 this.token = token;
                 this.tokenExpirationDate = Date.now() + 9 * 60 * 1000;
 
-                let baseRequest = request.defaults({
-                    qs: {
-                        'scenarios': 'ulm',
-                        'appid': 'D4D52672-91D7-4C74-8AD8-42B1D98141A5', // magic value as per MS docs
-                        'locale': locale,
-                        'device.os': '-',
-                        'version': '3.0',
-                        'format': 'json',
-                        'requestid': uuid.v4(), // can be anything
-                        'instanceid': uuid.v4() // can be anything
-                    },
+                let params = {
+                    'scenarios': 'ulm',
+                    'appid': 'D4D52672-91D7-4C74-8AD8-42B1D98141A5', // magic value as per MS docs
+                    'locale': locale,
+                    'device.os': '-',
+                    'version': '3.0',
+                    'format': 'json',
+                    'requestid': uuid.v4(), // can be anything
+                    'instanceid': uuid.v4() // can be anything
+                };
+
+                let options = {
                     headers: {
                         'Authorization': `Bearer ${this.token}`,
-                        'Content-Type': 'audio/wav; codec="audio/pcm"; samplerate=16000',
-                        'Content-Length': wave.byteLength
+                        'Content-Type': 'audio/wav; codec="audio/pcm"; samplerate=16000'
                     },
-                    timeout: 15000,
-                    body: wave
-                });
+                    open_timeout: 5000,
+                    read_timeout: 5000
+                };
 
-                return baseRequest.post(this.BING_SPEECH_ENDPOINT_STT);
+                return new Promise<VoiceRecognitionResponse>((resolve, reject) => {
+                    let endpoint = this.BING_SPEECH_ENDPOINT_STT + '?' + querystring.stringify(params);
+                    needle.post(endpoint, input, options, (err, res, body) => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        if (res.statusCode !== 200) {
+                            return reject(new Error(`Wrong status code ${res.statusCode} in Bing Speech API / synthesize`));
+                        }
+
+                        resolve(body);
+                    });
+                });
             })
-            .then(result => JSON.parse(result))
             .catch((err: Error) => {
                 throw new Error(`Voice recognition failed miserably: ${err.message}`);
             });
     }
 
+    /**
+     * * @deprecated Use the synthesizeStream function instead. Will be removed in 2.x
+     */
     synthesize(text: string, locale: string = 'en-us', gender: string = 'female'): Promise<VoiceSynthesisResponse> {
+        return this.synthesizeStream(text, locale, gender)
+            .then(waveStream => {
+                return new Promise<VoiceSynthesisResponse>((resolve, reject) => {
+                    let buffers: any[] = [];
+                    waveStream.on('data', (buffer: any) => buffers.push(buffer));
+                    waveStream.on('end', () => {
+                        let wave = Buffer.concat(buffers);
+                        let response: VoiceSynthesisResponse = {
+                            wave: wave
+                        };
+                        resolve(response);
+                    });
+                    waveStream.on('error', (err: Error) => reject(err));
+                });
+            })
+            .catch((err: Error) => {
+                throw new Error(`Voice synthesis failed miserably: ${err.message}`);
+            });
+    }
+
+    synthesizeStream(text: string, locale: string = 'en-us', gender: string = 'female'): Promise<NodeJS.ReadWriteStream> {
         // see also https://github.com/Microsoft/Cognitive-Speech-TTS/blob/master/Samples-Http/NodeJS/TTSService.js
         return this.issueToken()
             .then((token) => {
@@ -130,7 +177,7 @@ export class BingSpeechClient {
                             <voice name='${font}' xml:lang='${locale}' xml:gender='${gender}'>${text}</voice>
                             </speak>`;
 
-                let baseRequest = request.defaults({
+                let options = {
                     headers: {
                         'Authorization': `Bearer ${this.token}`,
                         'Content-Type': 'application/ssml+xml',
@@ -140,18 +187,11 @@ export class BingSpeechClient {
                         'X-Search-ClientID': '00000000000000000000000000000000',
                         'User-Agent': 'bingspeech-api-client'
                     },
-                    timeout: 15000,
-                    encoding: null, // return body directly as a Buffer
-                    body: ssml
-                });
-
-                return baseRequest.post(this.BING_SPEECH_ENDPOINT_TTS);
-            })
-            .then(result => {
-                let response: VoiceSynthesisResponse = {
-                    wave: result
+                    open_timeout: 5000,
+                    read_timeout: 5000
                 };
-                return response;
+
+                return needle.post(this.BING_SPEECH_ENDPOINT_TTS, ssml, options);
             })
             .catch((err: Error) => {
                 throw new Error(`Voice synthesis failed miserably: ${err.message}`);
@@ -166,15 +206,26 @@ export class BingSpeechClient {
 
         debug('issue new token for subscription key %s', this.subscriptionKey);
 
-        let baseRequest = request.defaults({
+        let options = {
             headers: {
-                'Ocp-Apim-Subscription-Key': this.subscriptionKey,
-                'Content-Length': 0
+              'Ocp-Apim-Subscription-Key': this.subscriptionKey,
+              'Content-Length': 0
             },
-            timeout: 5000
-        });
+            open_timeout: 3000,
+            read_timeout: 3000
+        };
 
-        return baseRequest.post(this.BING_SPEECH_TOKEN_ENDPOINT);
+        return new Promise((resolve, reject) => {
+            needle.post(this.BING_SPEECH_TOKEN_ENDPOINT, null, options, (err, res, body) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (res.statusCode !== 200) {
+                    return reject(new Error(`Wrong status code ${res.statusCode} in Bing Speech API / token`));
+                }
+                resolve(body.toString('utf-8'));
+            });
+        });
     }
 
     private convertToUnicode(message: string): string {
