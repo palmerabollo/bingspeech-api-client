@@ -16,12 +16,12 @@ Install [`bingspeech-api-client`](https://www.npmjs.com/package/bingspeech-api-c
 npm install -save bingspeech-api-client
 ```
 
-See example below on how to requrie and use for Speech to text (STT) and text to speech (TTS).
+See example below on how to require and use for Speech to text (STT) and text to speech (TTS).
 
 
 ## Examples 
 
-Following example code is assuming you are using [typescript](https://www.typescriptlang.org/). If you are skip this section and go straight to the example. But if you are using node ES6 and want to use the example code read on. 
+Following example code is assuming you are using [typescript](https://www.typescriptlang.org/). If you are, skip this section and go straight to the examples. But if you are using node ES6 and want to use the example code read on. 
 
 At present node does not support `import`. As mentioned on [MDN](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/import)
 
