@@ -2,6 +2,22 @@
 
 A Microsoft Bing Speech API client written in node.js.
 
+Official documentation for [Bing Speech API service](https://docs.microsoft.com/en-us/azure/cognitive-services/speech/home).
+
+>[To work with Bing Speech API, you must have a subscription key. If you don't have a subscription key already, get one here: Subscriptions.](https://docs.microsoft.com/en-us/azure/cognitive-services/speech/getstarted/getstartedjswebsockets)
+
+
+
+## Usage
+
+Install [`bingspeech-api-client`](https://www.npmjs.com/package/bingspeech-api-client) in your node project with npm.
+
+```
+npm install -save bingspeech-api-client
+```
+
+See example below on how to requrie and use for Speech to text (STT) and text to speech (TTS).
+
 
 ## Examples 
 
