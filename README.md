@@ -1,4 +1,4 @@
-# bingspeech-api-client
+# `bingspeech-api-client`
 
 A Microsoft Bing Speech API client written in node.js.
 
