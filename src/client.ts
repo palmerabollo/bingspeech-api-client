@@ -155,7 +155,7 @@ export class BingSpeechClient {
             });
     }
 
-    synthesizeStream(text: string, locale: string = 'en-us', gender: string = 'female'): Promise<NodeJS.ReadWriteStream> {
+    synthesizeStream(text: string, locale: string = 'en-us', gender: string = 'female'): Promise<NodeJS.ReadableStream> {
         // see also https://github.com/Microsoft/Cognitive-Speech-TTS/blob/master/Samples-Http/NodeJS/TTSService.js
         return this.issueToken()
             .then((token) => {
