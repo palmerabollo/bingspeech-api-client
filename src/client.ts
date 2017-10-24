@@ -41,7 +41,8 @@ const VOICES: { [key: string]: string } = {
     'zh-hk female': 'Microsoft Server Speech Text to Speech Voice (zh-HK, Tracy, Apollo)',
     'zh-hk male': 'Microsoft Server Speech Text to Speech Voice (zh-HK, Danny, Apollo)',
     'zh-tw female': 'Microsoft Server Speech Text to Speech Voice (zh-TW, Yating, Apollo)',
-    'zh-tw male': 'Microsoft Server Speech Text to Speech Voice (zh-TW, Zhiwei, Apollo)'
+    'zh-tw male': 'Microsoft Server Speech Text to Speech Voice (zh-TW, Zhiwei, Apollo)',
+    'nl-nl female': 'Microsoft Server Speech Text to Speech Voice (nl-NL, HannaRUS)'
 };
 
 // Official docs
