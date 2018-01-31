@@ -90,3 +90,4 @@ let subscriptionKey = 'your_private_subscription_key';
 let client = new BingSpeechClient(subscriptionKey);
 client.synthesize('I have a dream').then(response => { /* audio is a Buffer in response.wave */ });
 ```
+
