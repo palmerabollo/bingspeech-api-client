@@ -1,6 +1,6 @@
-# bingspeech-api-client-saudi
+# bingspeech-api-client
 
-A Microsoft Bing Speech API client written in Node.js, with added support for the Saudi Arabian dialect.
+A Microsoft Bing Speech API client written in node.js.
 
 Official documentation for [Bing Speech API service](https://docs.microsoft.com/en-us/azure/cognitive-services/speech/home).
 
@@ -9,10 +9,10 @@ Official documentation for [Bing Speech API service](https://docs.microsoft.com/
 
 ## Usage
 
-Install [`bingspeech-api-client-saudi`](https://www.npmjs.com/package/bingspeech-api-client-saudi) in your node project with npm.
+Install [`bingspeech-api-client`](https://www.npmjs.com/package/bingspeech-api-client) in your node project with npm.
 
 ```
-npm install -save bingspeech-api-client-saudi
+npm install -save bingspeech-api-client
 ```
 
 See example below on how to require and use for Speech to text (STT) and text to speech (TTS).
@@ -30,7 +30,7 @@ At present node does not support `import`. As mentioned on [MDN](https://develop
 To get the example code working change the first line to: 
 
 ```js
-const { BingSpeechClient, VoiceRecognitionResponse } = require('bingspeech-api-client-saudi');
+const { BingSpeechClient, VoiceRecognitionResponse } = require('bingspeech-api-client');
 ```
 
 
@@ -39,7 +39,7 @@ const { BingSpeechClient, VoiceRecognitionResponse } = require('bingspeech-api-c
 #### STT usage example (recognize)
 
 ```javascript
-import { BingSpeechClient, VoiceRecognitionResponse } from 'bingspeech-api-client-saudi';
+import { BingSpeechClient, VoiceRecognitionResponse } from 'bingspeech-api-client';
 
 let audioStream = fs.createReadStream(myFileName); // create audio stream from any source
 
@@ -53,7 +53,7 @@ client.recognizeStream(audioStream).then(response => console.log(response.result
 #### TTS usage example (synthesize)
 
 ```javascript
-import { BingSpeechClient, VoiceVoiceSynthesisResponse } from 'bingspeech-api-client-saudi';
+import { BingSpeechClient, VoiceVoiceSynthesisResponse } from 'bingspeech-api-client';
 
 // Bing Speech Key (https://www.microsoft.com/cognitive-services/en-us/subscriptions)
 let subscriptionKey = 'your_private_subscription_key';
@@ -67,7 +67,7 @@ client.synthesizeStream('I have a dream').then(audioStream => /* ... */);
 #### STT usage example (recognize)
 
 ```javascript
-import { BingSpeechClient, VoiceRecognitionResponse } from 'bingspeech-api-client-saudi';
+import { BingSpeechClient, VoiceRecognitionResponse } from 'bingspeech-api-client';
 
 // audio input in a Buffer
 let wav = fs.readFileSync('myaudiofile.wav');
@@ -82,7 +82,7 @@ client.recognize(wav).then(response => console.log(response.results[0].name));
 #### TTS usage example (synthesize)
 
 ```javascript
-import { BingSpeechClient, VoiceVoiceSynthesisResponse } from 'bingspeech-api-client-saudi';
+import { BingSpeechClient, VoiceVoiceSynthesisResponse } from 'bingspeech-api-client';
 
 // Bing Speech Key (https://www.microsoft.com/cognitive-services/en-us/subscriptions)
 let subscriptionKey = 'your_private_subscription_key';
@@ -90,4 +90,3 @@ let subscriptionKey = 'your_private_subscription_key';
 let client = new BingSpeechClient(subscriptionKey);
 client.synthesize('I have a dream').then(response => { /* audio is a Buffer in response.wave */ });
 ```
-
