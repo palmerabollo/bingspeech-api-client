@@ -13,6 +13,7 @@ const ASIAN_LOCALES = ['zh-cn', 'zh-hk', 'zh-tw', 'ja-jp'];
 
 const VOICES: { [key: string]: string } = {
     'ar-eg female': 'Microsoft Server Speech Text to Speech Voice (ar-EG, Hoda)',
+    'ar-sa male': 'Microsoft Server Speech Text to Speech Voice (ar-SA, Naayf)',
     'de-de female': 'Microsoft Server Speech Text to Speech Voice (de-DE, Hedda)',
     'de-de male': 'Microsoft Server Speech Text to Speech Voice (de-DE, Stefan, Apollo)',
     'en-au female': 'Microsoft Server Speech Text to Speech Voice (en-AU, Catherine)',
