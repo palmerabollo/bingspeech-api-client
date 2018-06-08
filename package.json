@@ -1,6 +1,6 @@
 {
   "name": "bingspeech-api-client",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Microsoft Bing Speech API client",
   "author": "Guido García <palmerabollo@gmail.com>",
   "license": "MIT",
@@ -28,25 +28,25 @@
     "microsoft"
   ],
   "dependencies": {
-    "@types/needle": "^0.7.29",
-    "debug": "^2.6.0",
-    "needle": "^1.4.3",
+    "debug": "^3.1.0",
+    "needle": "^2.2.1",
     "uuid": "^3.0.0"
   },
   "devDependencies": {
-    "@types/chai": "^3.4.33",
-    "@types/mocha": "^2.2.32",
-    "@types/nock": "^8.0.33",
+    "@types/chai": "^4.1.3",
+    "@types/mocha": "^5.2.1",
+    "@types/needle": "^2.0.2",
+    "@types/nock": "^9.1.3",
     "@types/node": "^6.0.40",
-    "@types/sinon": "^1.16.30",
-    "@types/sinon-chai": "^2.7.27",
-    "@types/uuid": "^2.0.29",
-    "chai": "^3.5.0",
-    "mocha": "^3.0.2",
-    "nock": "^8.0.0",
-    "sinon": "^1.17.6",
-    "sinon-chai": "^2.8.0",
-    "tslint": "^3.15.1",
-    "typescript": "^2.0.3"
+    "@types/sinon": "^5.0.1",
+    "@types/sinon-chai": "^2.7.32",
+    "@types/uuid": "^3.4.3",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nock": "^9.3.2",
+    "sinon": "^5.1.0",
+    "sinon-chai": "^3.1.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.1"
   }
 }

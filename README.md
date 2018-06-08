@@ -12,22 +12,22 @@ Official documentation for [Bing Speech API service](https://docs.microsoft.com/
 Install [`bingspeech-api-client`](https://www.npmjs.com/package/bingspeech-api-client) in your node project with npm.
 
 ```
-npm install -save bingspeech-api-client
+npm install --save bingspeech-api-client
 ```
 
 See example below on how to require and use for Speech to text (STT) and text to speech (TTS).
 
 
-## Examples 
+## Examples
 
-Following example code is assuming you are using [typescript](https://www.typescriptlang.org/). If you are, skip this section and go straight to the examples. But if you are using node ES6 and want to use the example code read on. 
+Following example code is assuming you are using [typescript](https://www.typescriptlang.org/). If you are, skip this section and go straight to the examples. But if you are using node ES6 and want to use the example code read on.
 
 At present node does not support `import`. As mentioned on [MDN](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/import)
 
 >Note: This feature[`import`] is only beginning to be implemented in browsers natively at this time. It is implemented in many transpilers, such as the Traceur Compiler, Babel, Rollup or Webpack.
 
 
-To get the example code working change the first line to: 
+To get the example code working change the first line to:
 
 ```js
 const { BingSpeechClient, VoiceRecognitionResponse } = require('bingspeech-api-client');
