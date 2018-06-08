@@ -32,6 +32,7 @@ const VOICES: { [key: string]: string } = {
     'it-it male': 'Microsoft Server Speech Text to Speech Voice (it-IT, Cosimo, Apollo)',
     'ja-jp female': 'Microsoft Server Speech Text to Speech Voice (ja-JP, Ayumi, Apollo)',
     'ja-jp male': 'Microsoft Server Speech Text to Speech Voice (ja-JP, Ichiro, Apollo)',
+    'pt-br female': 'Microsoft Server Speech Text to Speech Voice (pt-BR, HeloisaRUS)',
     'pt-br male': 'Microsoft Server Speech Text to Speech Voice (pt-BR, Daniel, Apollo)',
     'ru-ru female': 'Microsoft Server Speech Text to Speech Voice (ru-RU, Irina, Apollo)',
     'ru-ru male': 'Microsoft Server Speech Text to Speech Voice (ru-RU, Pavel, Apollo)',
