@@ -157,7 +157,7 @@ export class BingSpeechClient {
             });
     }
 
-    synthesizeStream(text: string, locale: string = 'en-us', gender: string = 'female'): Promise<NodeJS.ReadableStream> {
+    synthesizeStream(text: string, locale: string = 'en-us', gender: string = 'female', audio: string = this.AUDIO_OUTPUT_FORMAT): Promise<NodeJS.ReadableStream> {
         // see also https://github.com/Microsoft/Cognitive-Speech-TTS/blob/master/Samples-Http/NodeJS/TTSService.js
         return this.issueToken()
             .then((token) => {
@@ -185,7 +185,7 @@ export class BingSpeechClient {
                         'Authorization': `Bearer ${this.token}`,
                         'Content-Type': 'application/ssml+xml',
                         'Content-Length': ssml.length,
-                        'X-Microsoft-OutputFormat': this.AUDIO_OUTPUT_FORMAT,
+                        'X-Microsoft-OutputFormat': audio,
                         'X-Search-AppId': '00000000000000000000000000000000',
                         'X-Search-ClientID': '00000000000000000000000000000000',
                         'User-Agent': 'bingspeech-api-client'
