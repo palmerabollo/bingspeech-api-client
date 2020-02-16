@@ -1,3 +1,3 @@
 export { BingSpeechClient } from './client';
-export { VoiceRecognitionResponse, VoiceSynthesisResponse } from './models';
+export { VoiceRecognitionResponse } from './models';
 

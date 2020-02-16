@@ -27,11 +27,4 @@ export interface VoiceRecognitionResponse {
             LOWCONF?: string;
         }
     }[];
-};
-
-/**
- * @deprecated Use streaming mode instead. Will be removed in 2.x
- */
-export interface VoiceSynthesisResponse {
-    wave: Buffer;
 }

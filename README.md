@@ -17,7 +17,6 @@ npm install --save bingspeech-api-client
 
 See example below on how to require and use for Speech to text (STT) and text to speech (TTS).
 
-
 ## Examples
 
 Following example code is assuming you are using [typescript](https://www.typescriptlang.org/). If you are, skip this section and go straight to the examples. But if you are using node ES6 and want to use the example code read on.
@@ -26,17 +25,13 @@ At present node does not support `import`. As mentioned on [MDN](https://develop
 
 >Note: This feature[`import`] is only beginning to be implemented in browsers natively at this time. It is implemented in many transpilers, such as the Traceur Compiler, Babel, Rollup or Webpack.
 
-
 To get the example code working change the first line to:
 
 ```js
 const { BingSpeechClient, VoiceRecognitionResponse } = require('bingspeech-api-client');
 ```
 
-
-### Usage with streams
-
-#### STT usage example (recognize)
+### STT usage example (recognize)
 
 ```javascript
 import { BingSpeechClient, VoiceRecognitionResponse } from 'bingspeech-api-client';
@@ -50,7 +45,7 @@ let client = new BingSpeechClient(subscriptionKey);
 client.recognizeStream(audioStream).then(response => console.log(response.results[0].name));
 ```
 
-#### TTS usage example (synthesize)
+### TTS usage example (synthesize)
 
 ```javascript
 import { BingSpeechClient, VoiceVoiceSynthesisResponse } from 'bingspeech-api-client';
@@ -61,33 +56,3 @@ let subscriptionKey = 'your_private_subscription_key';
 let client = new BingSpeechClient(subscriptionKey);
 client.synthesizeStream('I have a dream').then(audioStream => /* ... */);
 ```
-
-### Usage with buffers (deprecated, will be removed in 2.x)
-
-#### STT usage example (recognize)
-
-```javascript
-import { BingSpeechClient, VoiceRecognitionResponse } from 'bingspeech-api-client';
-
-// audio input in a Buffer
-let wav = fs.readFileSync('myaudiofile.wav');
-
-// Bing Speech Key (https://www.microsoft.com/cognitive-services/en-us/subscriptions)
-let subscriptionKey = 'your_private_subscription_key';
-
-let client = new BingSpeechClient(subscriptionKey);
-client.recognize(wav).then(response => console.log(response.results[0].name));
-```
-
-#### TTS usage example (synthesize)
-
-```javascript
-import { BingSpeechClient, VoiceVoiceSynthesisResponse } from 'bingspeech-api-client';
-
-// Bing Speech Key (https://www.microsoft.com/cognitive-services/en-us/subscriptions)
-let subscriptionKey = 'your_private_subscription_key';
-
-let client = new BingSpeechClient(subscriptionKey);
-client.synthesize('I have a dream').then(response => { /* audio is a Buffer in response.wave */ });
-```
-

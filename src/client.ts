@@ -1,11 +1,8 @@
-import * as fs from 'fs';
-import * as util from 'util';
 import * as uuid from 'uuid';
 import * as needle from 'needle';
-import * as stream from 'stream';
 import * as querystring from 'querystring';
 
-import { VoiceRecognitionResponse, VoiceSynthesisResponse } from './models';
+import { VoiceRecognitionResponse } from './models';
 
 const debug = require('debug')('bingspeechclient');
 
@@ -74,19 +71,9 @@ export class BingSpeechClient {
         this.subscriptionKey = subscriptionKey;
     }
 
-    /**
-     * @deprecated Use the recognizeStream function instead. Will be removed in 2.x
-     */
-    recognize(wave: Buffer, locale: string = 'en-us'): Promise<VoiceRecognitionResponse> {
-        var bufferStream = new stream.PassThrough();
-        bufferStream.end(wave);
-
-        return this.recognizeStream(bufferStream, locale);
-    }
-
     recognizeStream(input: NodeJS.ReadWriteStream, locale: string = 'en-us'): Promise<VoiceRecognitionResponse> {
         // see also https://nowayshecodes.com/2016/02/12/speech-to-text-with-project-oxford-using-node-js/
-        // TODO make locale and content-type configurable
+        // TODO make content-type configurable
         return this.issueToken()
             .then((token) => {
                 // Access token expires every 10 minutes. Renew it every 9 minutes only.
@@ -130,30 +117,6 @@ export class BingSpeechClient {
             })
             .catch((err: Error) => {
                 throw new Error(`Voice recognition failed miserably: ${err.message}`);
-            });
-    }
-
-    /**
-     * * @deprecated Use the synthesizeStream function instead. Will be removed in 2.x
-     */
-    synthesize(text: string, locale: string = 'en-us', gender: string = 'female'): Promise<VoiceSynthesisResponse> {
-        return this.synthesizeStream(text, locale, gender)
-            .then(waveStream => {
-                return new Promise<VoiceSynthesisResponse>((resolve, reject) => {
-                    let buffers: any[] = [];
-                    waveStream.on('data', (buffer: any) => buffers.push(buffer));
-                    waveStream.on('end', () => {
-                        let wave = Buffer.concat(buffers);
-                        let response: VoiceSynthesisResponse = {
-                            wave: wave
-                        };
-                        resolve(response);
-                    });
-                    waveStream.on('error', (err: Error) => reject(err));
-                });
-            })
-            .catch((err: Error) => {
-                throw new Error(`Voice synthesis failed miserably: ${err.message}`);
             });
     }
 
