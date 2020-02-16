@@ -64,7 +64,7 @@ export class BingSpeechClient {
     /**
      * Supported: raw-8khz-8bit-mono-mulaw, raw-16khz-16bit-mono-pcm, riff-8khz-8bit-mono-mulaw, riff-16khz-16bit-mono-pcm
      */
-    private AUDIO_OUTPUT_FORMAT = 'riff-8khz-8bit-mono-mulaw';
+    private DEFAULT_AUDIO_OUTPUT_FORMAT = 'riff-8khz-8bit-mono-mulaw';
 
     /**
       * @constructor
@@ -157,7 +157,7 @@ export class BingSpeechClient {
             });
     }
 
-    synthesizeStream(text: string, locale: string = 'en-us', gender: string = 'female'): Promise<NodeJS.ReadableStream> {
+    synthesizeStream(text: string, locale: string = 'en-us', gender: string = 'female', outputFormat:string = this.DEFAULT_AUDIO_OUTPUT_FORMAT): Promise<NodeJS.ReadableStream> {
         // see also https://github.com/Microsoft/Cognitive-Speech-TTS/blob/master/Samples-Http/NodeJS/TTSService.js
         return this.issueToken()
             .then((token) => {
@@ -185,7 +185,7 @@ export class BingSpeechClient {
                         'Authorization': `Bearer ${this.token}`,
                         'Content-Type': 'application/ssml+xml',
                         'Content-Length': ssml.length,
-                        'X-Microsoft-OutputFormat': this.AUDIO_OUTPUT_FORMAT,
+                        'X-Microsoft-OutputFormat': outputFormat,
                         'X-Search-AppId': '00000000000000000000000000000000',
                         'X-Search-ClientID': '00000000000000000000000000000000',
                         'User-Agent': 'bingspeech-api-client'
