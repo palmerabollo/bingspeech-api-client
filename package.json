@@ -15,7 +15,7 @@
     "clean": "rm -fR ./lib",
     "compile": "tsc",
     "lint": "tslint './src/**/*.ts'",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "test": "npm run build && mocha -R spec 'lib/**/*.spec.js'"
   },
   "repository": {
@@ -29,24 +29,24 @@
   ],
   "dependencies": {
     "debug": "^4.1.1",
-    "needle": "^2.2.4",
-    "uuid": "^3.3.2"
+    "needle": "^2.3.2",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.5",
+    "@types/chai": "^4.2.9",
+    "@types/mocha": "^7.0.1",
     "@types/needle": "^2.0.4",
-    "@types/nock": "^9.3.1",
-    "@types/node": "^10.12.23",
-    "@types/sinon": "^7.0.5",
-    "@types/sinon-chai": "^3.2.2",
-    "@types/uuid": "^3.4.4",
+    "@types/nock": "^11.1.0",
+    "@types/node": "^10.17.15",
+    "@types/sinon": "^7.5.1",
+    "@types/sinon-chai": "^3.2.3",
+    "@types/uuid": "^3.4.7",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "nock": "^10.0.6",
-    "sinon": "^7.2.3",
-    "sinon-chai": "^3.3.0",
-    "tslint": "^5.12.1",
-    "typescript": "^2.9.2"
+    "mocha": "^7.0.1",
+    "nock": "^11.8.2",
+    "sinon": "^8.1.1",
+    "sinon-chai": "^3.4.0",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5"
   }
 }
