@@ -47,8 +47,12 @@ const VOICES: { [key: string]: string } = {
 // Official docs
 // STT https://www.microsoft.com/cognitive-services/en-us/speech-api/documentation/API-Reference-REST/BingVoiceRecognition
 // TTS https://www.microsoft.com/cognitive-services/en-us/speech-api/documentation/api-reference-rest/bingvoiceoutput
+export interface IBingSpeechClient {
+    recognizeStream(input: NodeJS.ReadWriteStream, locale?: string): Promise<VoiceRecognitionResponse>;
+    synthesizeStream(text: string, locale?: string, gender?: string, outputFormat?: string): Promise<NodeJS.ReadableStream>;
+}
 
-export class BingSpeechClient {
+export class BingSpeechClient implements IBingSpeechClient {
     private BING_SPEECH_TOKEN_ENDPOINT = 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken';
     private BING_SPEECH_ENDPOINT_STT = 'https://speech.platform.bing.com/recognize';
     private BING_SPEECH_ENDPOINT_TTS = 'https://speech.platform.bing.com/synthesize';
